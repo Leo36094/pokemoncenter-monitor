@@ -31,9 +31,6 @@ load_dotenv()
 
 URL = os.getenv("PCO_URL", "https://www.pokemoncenter-online.com")
 
-# --- LINE Notify -----------------------------------------------------------
-LINE_TOKEN: Optional[str] = os.getenv("LINE_NOTIFY_TOKEN")  # Personal Access Token
-
 # --- E‑mail (optional) -----------------------------------------------------
 SMTP_HOST = os.getenv("SMTP_HOST")
 SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
