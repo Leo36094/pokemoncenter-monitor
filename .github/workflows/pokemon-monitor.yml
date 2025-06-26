@@ -9,6 +9,7 @@ on:
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    environment: .env  # Use the environment you created
     
     steps:
     - name: Checkout repository
@@ -25,14 +26,14 @@ jobs:
         
     - name: Create .env file
       run: |
-        echo "PCO_URL=https://www.pokemoncenter-online.com" >> .env
-        echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> .env
-        echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
-        echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> .env
-        echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> .env
-        echo "EMAIL_TO=${{ secrets.EMAIL_TO }}" >> .env
-        echo "EMAIL_FROM=${{ secrets.EMAIL_FROM }}" >> .env
-        echo "TIMEOUT=10" >> .env
+        echo "PCO_URL=${{ vars.PCO_URL }}" >> .env
+        echo "SMTP_HOST=${{ vars.SMTP_HOST }}" >> .env
+        echo "SMTP_PORT=${{ vars.SMTP_PORT }}" >> .env
+        echo "SMTP_USER=${{ vars.SMTP_USER }}" >> .env
+        echo "SMTP_PASS=${{ vars.SMTP_PASS }}" >> .env
+        echo "EMAIL_TO=${{ vars.EMAIL_TO }}" >> .env
+        echo "EMAIL_FROM=${{ vars.EMAIL_FROM }}" >> .env
+        echo "TIMEOUT=${{ vars.TIMEOUT }}" >> .env
         
     - name: Run monitor
       run: python3 pco_monitor.py 
