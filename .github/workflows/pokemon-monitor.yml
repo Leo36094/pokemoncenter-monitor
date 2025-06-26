@@ -23,17 +23,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip install requests python-dotenv
-        
-    - name: Create .env file
-      run: |
-        echo "PCO_URL=${{ vars.PCO_URL }}" >> .env
-        echo "SMTP_HOST=${{ vars.SMTP_HOST }}" >> .env
-        echo "SMTP_PORT=${{ vars.SMTP_PORT }}" >> .env
-        echo "SMTP_USER=${{ vars.SMTP_USER }}" >> .env
-        echo "SMTP_PASS=${{ vars.SMTP_PASS }}" >> .env
-        echo "EMAIL_TO=${{ vars.EMAIL_TO }}" >> .env
-        echo "EMAIL_FROM=${{ vars.EMAIL_FROM }}" >> .env
-        echo "TIMEOUT=${{ vars.TIMEOUT }}" >> .env
-        
+           
     - name: Run monitor
       run: python3 pco_monitor.py 
