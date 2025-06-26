@@ -1,0 +1,39 @@
+name: Pokemon Center Monitor
+
+on:
+  schedule:
+    # Run every 5 minutes
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        pip install requests python-dotenv
+        
+    - name: Create .env file
+      run: |
+        echo "PCO_URL=https://www.pokemoncenter-online.com" >> .env
+        echo "LINE_NOTIFY_TOKEN=${{ secrets.LINE_NOTIFY_TOKEN }}" >> .env
+        echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> .env
+        echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
+        echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> .env
+        echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> .env
+        echo "EMAIL_TO=${{ secrets.EMAIL_TO }}" >> .env
+        echo "EMAIL_FROM=${{ secrets.EMAIL_FROM }}" >> .env
+        echo "TIMEOUT=10" >> .env
+        
+    - name: Run monitor
+      run: python3 pco_monitor.py 
